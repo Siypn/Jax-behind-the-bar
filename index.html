@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Behind the Bar</title>
 <meta name="description" content="Bartender training: cocktails, spirits, wine, sake and beer, with an exam path and an AI coach.">
-<meta name="theme-color" content="#f5efe6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#17110f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0c0d" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -309,6 +309,61 @@ details.how{margin-top:26px}
  .timeline::before{display:none}
  .lvl-body{padding-top:8px}
 }
+
+/* ===== Theme: white, gold & crimson (replaces the warm paper/brown palette) ===== */
+:root{
+ --bg:#ffffff;--card:#ffffff;--ink:#121212;--mute:#6a6866;--wine:#9b1b26;--gold:#a8823f;--gold2:#e2c88f;--gold3:#8a6528;--ok:#2f6b4a;--bad:#b3261e;
+ --line:#ece6da;--soft:#f6f4f0;--okbg:#eaf3ed;--badbg:#fbeceb;--selbg:#fbf1f1;--duebg:#faf3e3;--duefg:#7a5512;--head:rgba(255,255,255,.92);--onwine:#ffffff;
+ --fill:#9b1b26;--fill2:#b8242f;--onfill:#ffffff;--ringbg:#f1ece2;
+ --goldline:linear-gradient(90deg,#e2c88f,#a8823f 50%,#e2c88f);
+ --paper:radial-gradient(900px 420px at 50% -220px,rgba(168,130,63,.10),transparent 70%);--noise:none;
+ --shadow:0 1px 2px rgba(18,18,18,.04),0 12px 32px -20px rgba(18,18,18,.22)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+ --bg:#0c0c0d;--card:#151516;--ink:#f6f2ea;--mute:#a19d96;--wine:#e5606a;--gold:#d6b373;--gold2:#f0dcae;--gold3:#a8823f;--ok:#7cc29a;--bad:#ef8a80;
+ --line:#2a2826;--soft:#1c1c1d;--okbg:#14261b;--badbg:#2e1616;--selbg:#2a1416;--duebg:#2a2214;--duefg:#efcf8e;--head:rgba(12,12,13,.9);--onwine:#ffffff;
+ --fill:#9b1b26;--fill2:#c12a36;--onfill:#ffffff;--ringbg:#262421;
+ --goldline:linear-gradient(90deg,#8a6528,#d6b373 50%,#8a6528);
+ --paper:radial-gradient(900px 420px at 50% -220px,rgba(214,179,115,.12),transparent 70%);--noise:none;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 36px -22px rgba(0,0,0,.8)}}
+:root[data-theme="dark"]{
+ --bg:#0c0c0d;--card:#151516;--ink:#f6f2ea;--mute:#a19d96;--wine:#e5606a;--gold:#d6b373;--gold2:#f0dcae;--gold3:#a8823f;--ok:#7cc29a;--bad:#ef8a80;
+ --line:#2a2826;--soft:#1c1c1d;--okbg:#14261b;--badbg:#2e1616;--selbg:#2a1416;--duebg:#2a2214;--duefg:#efcf8e;--head:rgba(12,12,13,.9);--onwine:#ffffff;
+ --fill:#9b1b26;--fill2:#c12a36;--onfill:#ffffff;--ringbg:#262421;
+ --goldline:linear-gradient(90deg,#8a6528,#d6b373 50%,#8a6528);
+ --paper:radial-gradient(900px 420px at 50% -220px,rgba(214,179,115,.12),transparent 70%);--noise:none;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 36px -22px rgba(0,0,0,.8)}
+body{background:var(--paper),var(--bg);background-attachment:fixed}
+header{border-bottom:0;box-shadow:none}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--goldline);opacity:.55}
+.logo svg{color:var(--gold)}
+/* Hero: crisp white card, gold hairline frame + gold top rule */
+.hero{background:var(--card);border:1px solid color-mix(in srgb,var(--gold) 38%,transparent)}
+.hero::after{border-color:color-mix(in srgb,var(--gold) 22%,transparent);box-shadow:none}
+.hero>.hero-main::before{content:"";display:block;width:44px;height:2px;background:var(--goldline);margin:0 0 18px;border-radius:2px}
+/* Cards & tiles: white with fine hairlines, gold on hover */
+.card,.tile,.course,.plist,.lessonlist{border-color:var(--line)}
+.tile:hover,.course:hover{border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+.tile.primary{background:radial-gradient(130% 100% at 100% 0%,rgba(226,200,143,.28),transparent 55%),linear-gradient(155deg,var(--fill2),var(--fill) 70%);border:1px solid color-mix(in srgb,var(--gold2) 45%,transparent)}
+.tile.primary .tile-k{color:var(--gold2)}
+/* Buttons: crimson with a whisper of gold edge */
+.btn{background:linear-gradient(180deg,var(--fill2),var(--fill));box-shadow:0 10px 24px -14px rgba(155,27,38,.7),inset 0 1px 0 rgba(255,255,255,.18)}
+.btn.alt{background:var(--card);color:var(--ink);border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.btn.alt:hover{background:var(--soft)}
+/* Progress: gold */
+.bar i,.lvl-bar i{background:var(--goldline)}
+.medal{background:var(--card);border-color:var(--gold);color:var(--gold3)}
+.lvl.current .medal{background:var(--fill);border-color:var(--gold);color:#fff;box-shadow:0 0 0 5px color-mix(in srgb,var(--gold) 22%,transparent)}
+.lvl.complete .medal{background:linear-gradient(160deg,var(--gold2),var(--gold) 60%,var(--gold3));border-color:var(--gold);color:#fff}
+.timeline::before{background:linear-gradient(var(--gold),color-mix(in srgb,var(--gold) 10%,transparent))}
+.ticon{color:var(--gold3)}
+nav button.on{color:var(--wine);background:var(--selbg)}
+.kind{color:var(--gold3)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kind,:root:not([data-theme="light"]) .ticon{color:var(--gold)}}
+:root[data-theme="dark"] .kind,:root[data-theme="dark"] .ticon{color:var(--gold)}
+.display,h1,h2{letter-spacing:-.01em}
+.num.done,.level.complete .lnum{background:linear-gradient(160deg,var(--gold2),var(--gold) 60%,var(--gold3));border-color:var(--gold);color:#fff}
+@media (max-width:700px){.hero::after{display:none}}
+.hero::after{display:none}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -777,7 +832,7 @@ const TRACK_ICON={
 const ticon=(tr,sz=26)=>`<svg class="ticon" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TRACK_ICON[tr]||TRACK_ICON['Electives']}</svg>`;
 function ring(p,size=132,stroke=7,label=''){const r=(size-stroke)/2,c=2*Math.PI*r,off=c*(1-Math.max(0,Math.min(1,p)));
  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${Math.round(p*100)}% complete"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ringbg)" stroke-width="${stroke}"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#rg)" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})"/>${label?`<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="ringtxt">${label}</text>`:''}</svg>`}
-const RING_DEFS='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="rg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="var(--gold)"/><stop offset="1" stop-color="var(--wine)"/></linearGradient></defs></svg>';
+const RING_DEFS='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="rg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="var(--gold2)"/><stop offset=".55" stop-color="var(--gold)"/><stop offset="1" stop-color="var(--gold3)"/></linearGradient></defs></svg>';
 const ornament='<div class="orn" aria-hidden="true"><span></span><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="currentColor"/></svg><span></span></div>';
 function greeting(){const h=new Date().getHours();return h<5?'Late night':h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
 
