@@ -176,6 +176,140 @@ h2{scroll-margin-top:90px}
  .simclock{top:calc(env(safe-area-inset-top,0px) + 60px)}
 }
 
+/* ================= Premium layer ================= */
+:root{--ringbg:rgba(107,29,42,.10);--paper:radial-gradient(1200px 600px at 85% -10%,rgba(154,116,50,.10),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(107,29,42,.06),transparent 55%);
+ --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ --r:20px;--shadow:0 1px 2px rgba(31,23,20,.04),0 12px 32px -20px rgba(31,23,20,.28)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ringbg:rgba(217,138,150,.14);--paper:radial-gradient(1200px 600px at 85% -10%,rgba(211,171,105,.10),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(217,138,150,.07),transparent 55%);--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -22px rgba(0,0,0,.7)}}
+:root[data-theme="dark"]{--ringbg:rgba(217,138,150,.14);--paper:radial-gradient(1200px 600px at 85% -10%,rgba(211,171,105,.10),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(217,138,150,.07),transparent 55%);--shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -22px rgba(0,0,0,.7)}
+body{background:var(--noise),var(--paper),var(--bg);background-attachment:fixed}
+main{max-width:860px}
+main>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+main>*:nth-child(2){animation-delay:.04s}main>*:nth-child(3){animation-delay:.08s}main>*:nth-child(4){animation-delay:.12s}main>*:nth-child(n+5){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.logo{font-weight:600;letter-spacing:.22em;font-size:19px}
+.btn{border-radius:999px;padding:13px 24px;background:linear-gradient(180deg,color-mix(in srgb,var(--wine) 88%,white),var(--wine));box-shadow:0 8px 20px -12px var(--wine);letter-spacing:.01em}
+.btn.alt{background:var(--card);box-shadow:none}
+.card{border-radius:var(--r);border-color:color-mix(in srgb,var(--line) 80%,transparent);padding:24px 26px}
+.card.flush{padding:0;overflow:hidden}
+.display{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7.2vw,60px);line-height:1;letter-spacing:-.015em;margin:10px 0 14px;text-wrap:balance}
+.lede{font-size:17.5px;line-height:1.55;color:var(--mute);max-width:56ch;margin:0}
+.sect{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.4vw,36px);margin:44px 0 4px;letter-spacing:-.005em}
+.sub{margin:0 0 18px}
+.kind{display:inline-flex;align-items:center;gap:6px}
+
+/* Hero */
+.hero{position:relative;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;padding:34px 34px 30px;border-radius:28px;background:linear-gradient(160deg,var(--card),color-mix(in srgb,var(--card) 70%,var(--selbg)));border:1px solid color-mix(in srgb,var(--gold) 28%,var(--line));box-shadow:var(--shadow);overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -60px -80px auto;width:260px;height:260px;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 25%,transparent);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:auto -20px -40px auto;width:180px;height:180px;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 18%,transparent);pointer-events:none}
+.hero .row{margin-top:22px}
+.hero.small{padding:28px 30px}
+.hero.small .display{font-size:clamp(36px,6vw,50px)}
+.hero-ring{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1}
+.ring{display:block}.ringtxt{font:500 30px var(--serif);fill:var(--ink)}
+.hero.small .ringtxt{font-size:22px}
+.ringcap{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:13px;color:var(--mute)}
+.due-t{color:var(--duefg);font-weight:600}
+
+/* Today tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.tile{display:flex;flex-direction:column;gap:6px;text-align:left;padding:18px 18px 16px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:15px/1.35 var(--sans);cursor:pointer;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease;min-height:118px}
+.tile:hover{transform:translateY(-2px);border-color:var(--gold)}
+.tile b{font:600 19px/1.2 var(--serif);letter-spacing:0}
+.tile span:last-child{font-size:13px;margin-top:auto}
+.tile-k{font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.tile.primary{background:linear-gradient(155deg,color-mix(in srgb,var(--wine) 82%,var(--gold)),var(--wine));border-color:transparent;color:var(--onwine)}
+.tile.primary .tile-k{color:color-mix(in srgb,var(--onwine) 75%,transparent)}
+
+/* Ornament */
+.orn{display:flex;align-items:center;gap:14px;color:var(--gold);margin:44px auto 0;max-width:280px}
+.orn span{flex:1;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 60%,transparent),transparent)}
+
+/* Timeline */
+.timeline{position:relative;padding-left:0}
+.timeline::before{content:"";position:absolute;left:21px;top:24px;bottom:24px;width:1px;background:linear-gradient(var(--gold),color-mix(in srgb,var(--gold) 15%,transparent))}
+.lvl{position:relative;margin:0 0 10px}
+.lvl>summary{display:flex;align-items:center;gap:16px;cursor:pointer;list-style:none;padding:10px 4px;border-radius:16px}
+.lvl>summary::-webkit-details-marker{display:none}
+.lvl>summary:hover{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+.medal{position:relative;z-index:1;width:42px;height:42px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font:500 20px var(--serif);background:var(--bg);border:1px solid var(--gold);color:var(--gold)}
+.lvl.current .medal{background:var(--wine);border-color:var(--wine);color:var(--onwine);box-shadow:0 0 0 6px color-mix(in srgb,var(--wine) 14%,transparent)}
+.lvl.complete .medal{background:var(--ok);border-color:var(--ok);color:var(--onwine)}
+.lvl.is-locked .medal{border-color:var(--line);color:var(--mute)}
+.lvl.is-locked>summary b{color:var(--mute)}
+.lvl-h{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.lvl-h b{font:500 22px/1.2 var(--serif)}
+.lvl-bar{display:block;height:3px;border-radius:3px;background:var(--soft);overflow:hidden;margin-top:6px;max-width:260px}
+.lvl-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--wine))}
+.lvl-n{font:500 15px var(--serif);color:var(--mute);font-variant-numeric:tabular-nums}
+.lvl-body{padding:4px 0 14px 58px}
+.pstep.is-done b{color:var(--mute)}
+
+/* Course gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:12px}
+.course{display:flex;flex-direction:column;gap:4px;text-align:left;padding:18px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:13.5px/1.4 var(--sans);cursor:pointer;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease}
+.course:hover{transform:translateY(-2px);border-color:var(--gold)}
+.course b{font:500 21px/1.15 var(--serif);margin-top:12px}
+.course-top{display:flex;justify-content:space-between;align-items:flex-start}
+.ticon{color:var(--wine);flex:none}
+.course .ring{margin:-4px -4px 0 0}
+
+/* Search, back */
+.search{display:flex;align-items:center;gap:10px;margin:22px 0 4px;padding:4px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);box-shadow:var(--shadow);color:var(--mute)}
+.search input{flex:1;border:0;background:transparent;font:16px var(--sans);color:var(--ink);padding:11px 0;outline:none}
+.search:focus-within{border-color:var(--gold)}
+#results{margin-top:14px}
+.back{background:none;border:0;color:var(--mute);font:500 14px var(--sans);cursor:pointer;padding:6px 0;margin-bottom:10px}
+.back:hover{color:var(--wine)}
+details.how{margin-top:26px}
+
+/* Lesson & list refinements */
+.lrow,.pstep{padding:15px 20px}
+.num{background:var(--bg)}
+.tabs{border-radius:999px;background:var(--card)}
+.sec b{font-weight:500;font-size:26px}
+.stats{border-color:color-mix(in srgb,var(--gold) 30%,var(--line))}
+
+@media (max-width:720px){
+ .hero{grid-template-columns:1fr;padding:26px 22px 24px;border-radius:24px;gap:18px}
+ .hero-ring{position:absolute;top:18px;right:16px}
+ .hero-ring .ring{width:78px;height:78px}
+ .hero-ring .ringtxt{font-size:30px}
+ .hero-ring .ringcap{display:none}
+ .hero .kind{padding-right:84px}
+ .display{font-size:clamp(36px,10vw,46px)}
+ .hero-main h1{padding-right:70px}
+ .tiles{grid-template-columns:1fr 1fr;gap:10px}
+ .tile{min-height:108px;padding:15px}
+ .tile b{font-size:17px}
+ .gallery{grid-template-columns:1fr 1fr;gap:10px}
+ .course{padding:15px}
+ .course b{font-size:19px}
+ .lvl-body{padding-left:0}
+ .lvl-h b{font-size:20px}
+}
+@media (prefers-reduced-motion: reduce){main>*{animation:none}}
+
+/* ---- Polish pass: rich wine fills in dark mode, quieter hero ornament, clean mobile timeline ---- */
+:root{--fill:#6b1d2a;--fill2:#8a2b3b;--onfill:#fffaf3}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--fill:#7d2434;--fill2:#a0384a;--onfill:#fbefe6}}
+:root[data-theme="dark"]{--fill:#7d2434;--fill2:#a0384a;--onfill:#fbefe6}
+.btn{background:linear-gradient(180deg,var(--fill2),var(--fill));border-color:var(--fill);color:var(--onfill);box-shadow:0 10px 24px -14px var(--fill),inset 0 1px 0 rgba(255,255,255,.14)}
+.btn.alt{background:var(--card);color:var(--ink);border-color:var(--line);box-shadow:none}
+.chip.on,.tabs span.on,.bubble.me,.simclock{background:var(--fill);border-color:var(--fill);color:var(--onfill)}
+.tile.primary{background:radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--gold) 30%,transparent),transparent 60%),linear-gradient(155deg,var(--fill2),var(--fill));color:var(--onfill)}
+.tile.primary .tile-k{color:color-mix(in srgb,var(--onfill) 72%,transparent)}
+.lvl.current .medal{background:var(--fill);border-color:var(--fill);color:var(--onfill)}
+.hero::before{display:none}
+.hero::after{inset:-140px -140px auto auto;width:360px;height:360px;border:1px solid color-mix(in srgb,var(--gold) 16%,transparent);box-shadow:0 0 0 40px color-mix(in srgb,var(--gold) 3%,transparent)}
+.hero>*:not(.hero-ring){position:relative;z-index:1}
+@media (max-width:700px){
+ .hero::after{inset:-90px -90px auto auto;width:230px;height:230px}
+ .timeline::before{display:none}
+ .lvl-body{padding-top:8px}
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
@@ -564,7 +698,7 @@ const PASS=80;let TRACKS=[...new Set(COURSE.map(l=>l.track))];const NOTE={Wine:'
 function status(l){const s=S.lessons[l.id]||{};if(s.best>=PASS)return 'done';if(s.read||s.best!=null)return 'mid';return 'new'}
 function dueRetake(l){const s=S.lessons[l.id]||{};if(s.best==null||!s.last)return null;const n=(s.attempts||1),gap=n<=1?1:n==2?7:30;return Date.now()-s.last>=gap*DAY?gap:null}
 function nav(cur){const t=[['path','My Path'],['home','Library'],['specs','Decks'],['coach','Coach'],['practice','Practice']];document.getElementById('nav').innerHTML=t.map(([k,n])=>`<button class="${k==cur?'on':''}" onclick="go('${k}')" aria-label="${n}"${k==cur?' aria-current="page"':''}>${ICON[k]||''}<span>${n}</span></button>`).join('')}
-function go(v,a){CUR=v;if(typeof _tick!=='undefined')clearInterval(_tick);if(typeof _simTick!=='undefined')clearInterval(_simTick);const NAVMAP={account:'none',examsim:'path',lesson:'path',exam:'path',plan:'path',final:'home',finals:'home',rfinal:'home',backbar:'specs',specexam:'specs',drills:'coach'};nav(NAVMAP[v]||v);({home,lesson,exam,finals,final,drills,specs,plan,path,backbar,coach,practice,rfinal,specexam,examsim,account})[v](a)}
+function go(v,a){CUR=v;if(typeof _tick!=='undefined')clearInterval(_tick);if(typeof _simTick!=='undefined')clearInterval(_simTick);const NAVMAP={track:'home',account:'none',examsim:'path',lesson:'path',exam:'path',plan:'path',final:'home',finals:'home',rfinal:'home',backbar:'specs',specexam:'specs',drills:'coach'};nav(NAVMAP[v]||v);({home,lesson,exam,finals,final,drills,specs,plan,path,backbar,coach,practice,rfinal,specexam,examsim,account,track})[v](a)}
 function home(){const done=COURSE.filter(l=>status(l)=='done').length,pct=Math.round(done/COURSE.length*100);
  const scores=COURSE.map(l=>(S.lessons[l.id]||{}).best).filter(x=>x!=null);const avg=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—';
  const next=COURSE.find(l=>status(l)!='done');const dues=COURSE.filter(dueRetake);
@@ -622,6 +756,89 @@ function drills(){let i=0;const o=sh(SCENARIOS.map(s=>s[2]));const nailed=Object
  document.getElementById('skip').onclick=()=>{i++;step()};
  document.getElementById('rv').onclick=()=>{document.getElementById('r').innerHTML=`<div class="fb ok-bg">${esc(s[1])}</div><div class="row"><button class="btn alt" id="m">I missed key points</button><button class="btn" id="n">I nailed it</button><button class="btn alt" id="cbtn">Get coach feedback</button></div><div id="cfb"></div>`;wireDrillCoach(s);
  const nx=v=>{S.drills[k]=v;save();i++;step()};document.getElementById('m').onclick=()=>nx(0);document.getElementById('n').onclick=()=>nx(1)}};step()}
+
+// ===== Premium UI layer: overrides home() and path(), adds track pages =====
+const TRACK_ICON={
+ 'Start Here':'<path d="M12 3l2.6 5.6L20 9.3l-4 4 1 5.7-5-2.8-5 2.8 1-5.7-4-4 5.4-.7z"/>',
+ 'Wine':'<path d="M8 3h8l-.6 6.2a3.4 3.4 0 0 1-6.8 0z"/><path d="M12 13v7M8.5 21h7"/>',
+ 'Spirits':'<path d="M10 3h4v3.5c0 .9 2 1.8 2 4.3V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-9.2c0-2.5 2-3.4 2-4.3z"/><path d="M8 13h8"/>',
+ 'Beer':'<path d="M6 7h10v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M6 7a2.5 2.5 0 0 1 3-2.4 3 3 0 0 1 5.5.4A2 2 0 0 1 16 7"/>',
+ 'Sake':'<path d="M10 3h4l-.5 3c2.5 1.2 3.5 3.5 3.5 6.5 0 4.5-2.2 8.5-5 8.5s-5-4-5-8.5c0-3 1-5.3 3.5-6.5z"/>',
+ 'Cocktails':'<path d="M4 5h16l-8 8z"/><path d="M12 13v8M8 21h8M16 3l-2 2"/>',
+ 'Mixology':'<path d="M8 8h8l-1 12a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/><path d="M9 8V6a3 3 0 0 1 6 0v2M10 3.5h4"/>',
+ 'Fine Dining':'<path d="M4 17h16M5 17a7 7 0 0 1 14 0M12 8V6M10 6h4M3 20h18"/>',
+ 'Mott 32':'<path d="M9 3h6M12 3v2M7 7h10l-1 10H8z"/><path d="M8 7c0-1 1.8-2 4-2s4 1 4 2M10 21h4M12 17v4"/>',
+ 'Masters of Mixology':'<path d="M5 18c0-5 3-9 7-11M19 18c0-5-3-9-7-11M7 12l-2-1M17 12l2-1M8 15l-2.5-.5M16 15l2.5-.5M12 7V4"/>',
+ 'Advanced':'<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/>',
+ 'Wine Exam Prep':'<path d="M8 3h8l-.6 6.2a3.4 3.4 0 0 1-6.8 0z"/><path d="M12 13v7M8.5 21h7M17 16l1.5 1.5L21 15"/>',
+ 'Sake Exam Prep':'<path d="M10 3h4l-.5 3c2.5 1.2 3.5 3.5 3.5 6.5 0 4.5-2.2 8.5-5 8.5s-5-4-5-8.5c0-3 1-5.3 3.5-6.5z"/><path d="M15 16.5l1.5 1.5 3-3"/>',
+ 'Beer Exam Prep':'<path d="M6 7h10v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M9 13.5l1.5 1.5 3-3"/>',
+ 'Electives':'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/>'};
+const ticon=(tr,sz=26)=>`<svg class="ticon" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TRACK_ICON[tr]||TRACK_ICON['Electives']}</svg>`;
+function ring(p,size=132,stroke=7,label=''){const r=(size-stroke)/2,c=2*Math.PI*r,off=c*(1-Math.max(0,Math.min(1,p)));
+ return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${Math.round(p*100)}% complete"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ringbg)" stroke-width="${stroke}"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#rg)" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})"/>${label?`<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" class="ringtxt">${label}</text>`:''}</svg>`}
+const RING_DEFS='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="rg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="var(--gold)"/><stop offset="1" stop-color="var(--wine)"/></linearGradient></defs></svg>';
+const ornament='<div class="orn" aria-hidden="true"><span></span><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="currentColor"/></svg><span></span></div>';
+function greeting(){const h=new Date().getHours();return h<5?'Late night':h<12?'Good morning':h<17?'Good afternoon':'Good evening'}
+
+function stepRow(x,locked){
+ if(x.task)return `<label class="pstep ${locked?'locked':''} ${x.done?'is-done':''}" for="${x.task}"><input type="checkbox" id="${x.task}" ${x.done?'checked':''} ${locked?'disabled':''}><span class="pbody"><span class="kind">${x.kind}</span><b>${esc(x.label)}</b><span class="mute psub">${esc(x.sub)}</span></span></label>`;
+ return `<div class="pstep ${locked?'locked':''} ${x.done?'is-done':''}" ${locked?'':`role="button" tabindex="0" onclick="${x.go}"`}><div class="num ${x.done?'done':''}">${x.done?'✓':''}</div><span class="pbody"><span class="kind">${x.kind}</span><b>${esc(x.label)}</b><span class="mute psub">${esc(x.sub)}</span></span>${locked?'<span class="pill">Locked</span>':x.done?'':'<span class="go" aria-hidden="true">›</span>'}</div>`}
+
+function path(){const ls=levelState(),cur=ls.find(x=>!x.complete)||ls[ls.length-1],tot=ls.reduce((a,x)=>a+x.info.length,0),dn=ls.reduce((a,x)=>a+x.d,0),nx=nextStep(),dues=COURSE.filter(dueRetake);
+ const pct=tot?dn/tot:0,lvlPct=cur.info.length?cur.d/cur.info.length:0;
+ const deck=cur.lv.n>=4&&BACKBAR.length&&knownBar()<BACKBAR.length?['backbar','Backbar Deck','10 bottles, out loud']:['specs','Spec Deck','10 specs, out loud'];
+ const prac=cur.lv.n>=5?['rounds','Timed round','One 4-drink round']:cur.lv.n>=3?['tastings','Tasting','Log one tasting']:['jigger','Jigger check','5 measured pours'];
+ const tiles=[];
+ if(dues.length)tiles.push(`<button class="tile" onclick="go('lesson','${dues[0].id}')"><span class="tile-k">Retake due</span><b>${esc(dues[0].title)}</b><span class="mute">5 min</span></button>`);
+ if(nx)tiles.push(`<button class="tile primary" onclick="${nx.step.go||`go('path')`}"><span class="tile-k">Next step</span><b>${esc(nx.step.label)}</b><span>15–20 min</span></button>`);
+ tiles.push(`<button class="tile" onclick="go('${deck[0]}')"><span class="tile-k">Flashcards</span><b>${deck[1]}</b><span class="mute">${deck[2]}</span></button>`);
+ tiles.push(`<button class="tile" onclick="go('practice','${prac[0]}')"><span class="tile-k">Hands-on</span><b>${prac[1]}</b><span class="mute">${prac[2]}</span></button>`);
+ $(`${RING_DEFS}<section class="hero">
+  <div class="hero-main"><div class="kind">${greeting()} · Level ${cur.lv.n} of ${PATH.length} · ${esc(cur.lv.week)}</div>
+   <h1 class="display">${esc(cur.lv.title)}</h1><p class="lede">${esc(cur.lv.goal)}</p>
+   ${nx?`<div class="row"><button class="btn" onclick="${nx.step.go||`document.getElementById('${nx.step.task}').scrollIntoView({behavior:'smooth',block:'center'})`}">Continue: ${esc(nx.step.label)}</button></div>`:`<p class="lede"><b>Path complete.</b> Keep your retakes current and keep staging.</p>`}
+   <div class="meta"><span>${dn} of ${tot} steps</span><span>·</span><span>${cur.d} of ${cur.info.length} in this level</span>${dues.length?`<span>·</span><span class="due-t">${dues.length} retake${dues.length>1?'s':''} due</span>`:''}</div></div>
+  <div class="hero-ring">${ring(pct,148,8,Math.round(pct*100)+'%')}<span class="mute ringcap">of your path</span></div>
+ </section>
+ <h2 class="sect">Today's session</h2><p class="mute sub">About 30–45 minutes. Do them in order.</p>
+ <div class="tiles">${tiles.join('')}</div>
+ ${ornament}
+ <h2 class="sect">The path</h2><p class="mute sub">Nine levels, each unlocking the next. Already know a lesson? Take its exam and move on.</p>
+ <div class="timeline">${ls.map(x=>{const locked=!x.unlocked,isCur=x===cur,p=x.info.length?x.d/x.info.length:0;
+  return `<details class="lvl ${x.complete?'complete':''} ${locked?'is-locked':''} ${isCur?'current':''}" ${isCur?'open':''}><summary><span class="medal">${x.complete?'✓':x.lv.n}</span><span class="lvl-h"><span class="kind">${esc(x.lv.week)}${isCur?' · You are here':''}</span><b>${esc(x.lv.title)}</b><span class="lvl-bar"><i style="width:${p*100}%"></i></span></span><span class="lvl-n">${x.d}/${x.info.length}</span></summary>
+  <div class="lvl-body"><p class="mute" style="margin:0 0 10px">${esc(x.lv.goal)}${locked?` Unlocks when Level ${x.lv.n-1} is complete.`:''}</p><div class="card flush">${x.info.map(i=>stepRow(i,locked)).join('')}</div></div></details>`}).join('')}</div>
+ ${ornament}
+ <h2 class="sect" id="expert">Expert tracks</h2><p class="mute sub">Open anytime. Exam-format topics for wine, sake and beer, plus the masters of mixology.</p>
+ <div class="gallery">${EXPERT.map(e=>{const lsn=COURSE.filter(l=>l.track==e.track);if(!lsn.length)return '';const d=lsn.filter(l=>status(l)=='done').length;
+  return `<button class="course" onclick="go('track','${e.track}')"><span class="course-top">${ticon(e.track,30)}${ring(d/lsn.length,44,4)}</span><b>${esc(e.track)}</b><span class="mute">${lsn.length} lessons${e.sim?' · timed exam':''}</span></button>`}).join('')}</div>
+ <details class="card how"><summary><b>How the path works</b></summary><p class="mute">Each lesson: read it, say the main points out loud, then pass the exam at ${PASS}%. Level checkpoints (finals) need ${FINAL_PASS}%. Retakes come back after 1 day, 1 week and 1 month; do them when they're due. Practice steps are checked off by you or counted from your Practice log.</p></details>
+ <p class="save"><span id="sync">${SYNC}</span></p>`);
+ document.querySelectorAll('.pstep input').forEach(c=>c.onchange=()=>{S.plan[c.id]=c.checked?1:0;save();const y=scrollY;path();scrollTo(0,y)});
+ document.querySelectorAll('.pstep[role=button]').forEach(e=>e.onkeydown=ev=>{if(ev.key=='Enter'||ev.key==' '){ev.preventDefault();e.click()}})}
+
+function home(){const done=COURSE.filter(l=>status(l)=='done').length;
+ const card=tr=>{const arr=COURSE.filter(l=>l.track==tr),d=arr.filter(l=>status(l)=='done').length,due=arr.filter(dueRetake).length;
+  return `<button class="course" onclick="go('track','${tr.replace(/'/g,"\\'")}')"><span class="course-top">${ticon(tr,30)}${ring(arr.length?d/arr.length:0,44,4)}</span><b>${esc(tr)}</b><span class="mute">${arr.length} lesson${arr.length>1?'s':''}${due?` · <span class="due-t">${due} due</span>`:''}</span></button>`};
+ const groups=[['Foundations',['Start Here','Cocktails','Mixology','Fine Dining']],['Product knowledge',['Spirits','Wine','Sake','Beer']],['Your bar',['Mott 32']],['Expert & exam prep',['Masters of Mixology','Advanced','Wine Exam Prep','Sake Exam Prep','Beer Exam Prep','Electives']]];
+ $(`${RING_DEFS}<div class="kind">The Library</div><h1 class="display">Every lesson, one shelf</h1><p class="lede">${COURSE.length} lessons and ${COURSE.reduce((a,l)=>a+l.q.length,0)} exam questions. ${done} passed so far.</p>
+ <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search lessons: Negroni, Sancerre, kōji…" aria-label="Search lessons" autocomplete="off"></div>
+ <div id="results"></div>
+ <div id="shelves">${groups.map(([g,trs])=>{const t=trs.filter(x=>TRACKS.includes(x));return t.length?`<h2 class="sect">${g}</h2><div class="gallery">${t.map(card).join('')}</div>`:''}).join('')}
+ ${ornament}
+ <div class="row" style="justify-content:center"><button class="btn alt" onclick="go('finals')">Final exams</button><button class="btn alt" onclick="go('path')">My Path</button></div>
+ <details class="card srcs" style="margin-top:22px"><summary><b>Sources & fact-check</b></summary><p class="mute">Lessons were checked against published sources and corrected; disputed drink histories are marked as such. Go deeper with: <i>Liquid Intelligence</i> (Dave Arnold), <i>Cocktail Codex</i> and <i>Death &amp; Co</i>, <i>Meehan's Bartender Manual</i>, <i>The PDT Cocktail Book</i>, <i>Imbibe!</i> (David Wondrich). Bottles, prices and vintages change, so check the live menu on shift.</p></details></div>`);
+ const q=document.getElementById('q'),res=document.getElementById('results'),sh=document.getElementById('shelves');
+ q.oninput=()=>{const v=q.value.trim().toLowerCase();if(v.length<2){res.innerHTML='';sh.hidden=false;return}sh.hidden=true;
+  const hits=COURSE.filter(l=>(l.title+' '+l.k.join(' ')+' '+l.c.map(c=>c.join(' ')).join(' ')).toLowerCase().includes(v)).slice(0,30);
+  res.innerHTML=hits.length?`<div class="card flush">${hits.map(l=>{const st=status(l);return `<div class="lrow" onclick="go('lesson','${l.id}')"><div class="num ${st}">${st=='done'?'✓':''}</div><div style="flex:1;min-width:0"><b>${esc(l.title)}</b><div class="mute" style="font-size:13px">${esc(l.track)}</div></div><span class="go">›</span></div>`}).join('')}</div>`:'<p class="mute">No lessons match that yet.</p>'}}
+
+function track(tr){const arr=COURSE.filter(l=>l.track==tr);if(!arr.length){go('home');return}const d=arr.filter(l=>status(l)=='done').length,next=arr.find(l=>status(l)!='done')||arr[0];
+ const sim=(typeof EXPERT!=='undefined'&&EXPERT.find(e=>e.track==tr)||{}).sim;
+ $(`${RING_DEFS}<button class="back" onclick="go('home')">‹ Library</button><section class="hero small"><div class="hero-main"><div class="kind">${ticon(tr,18)} Course</div><h1 class="display">${esc(tr)}</h1><p class="lede">${NOTE[tr]||''}</p>
+ <div class="row"><button class="btn" onclick="go('lesson','${next.id}')">${d?'Continue':'Start'}: ${esc(next.title)}</button><button class="btn alt" onclick="go('final','${tr}')">Final exam</button>${sim?`<button class="btn alt" onclick="go('examsim','${sim}')">Timed simulation</button>`:''}</div></div>
+ <div class="hero-ring">${ring(d/arr.length,112,7,d+'/'+arr.length)}<span class="mute ringcap">passed</span></div></section>
+ <div class="card flush">${arr.map((l,n)=>{const s=S.lessons[l.id]||{},st=status(l),due=dueRetake(l);return `<div class="lrow" onclick="go('lesson','${l.id}')"><div class="num ${st}">${st=='done'?'✓':n+1}</div><div style="flex:1;min-width:0"><b>${esc(l.title)}</b><div class="mute" style="font-size:13px">${s.best!=null?`Best ${s.best}% · ${s.attempts} attempt${s.attempts>1?'s':''}`:s.read?'Reading started':'Not started'}</div></div>${due?'<span class="pill due">Retake due</span>':st=='done'?'<span class="pill ok">Passed</span>':'<span class="go">›</span>'}</div>`}).join('')}</div>`)}
 
 // ===== Web app adapter: Supabase login, synced progress, private content, AI coach =====
 const SB_URL='https://dxctmyonzgsqlkcoagga.supabase.co';
