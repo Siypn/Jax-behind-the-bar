@@ -560,7 +560,7 @@ function stepInfo(st){const t=st[0];
  if(t=='DR'){const k=nailedDrills(),n=Math.min(st[1],SCENARIOS.length);return {done:k>=n,label:`Nail ${n} Bar Drills`,sub:`Bar Drills · ${Math.min(k,n)}/${n} nailed`,go:`go('drills')`,kind:'Drills'}}
  if(t=='BB'&&!BACKBAR.length)return {done:false,label:'Mott 32 backbar deck (members only)',sub:'Sign in with your member account to unlock it',go:`go('account')`,kind:'Locked'};
  if(t=='BB'){const k=knownBar(),n=Math.min(st[1],BACKBAR.length);return {done:k>=n,label:n>=BACKBAR.length?'Know the full Mott 32 backbar':`Know ${n} backbar bottles`,sub:`Backbar Deck · ${Math.min(k,n)}/${n} known`,go:`go('backbar')`,kind:'Backbar'}}
- if(t=='RF'){const f=S.rfinals[st[1]]||{};return {done:(f.best||0)>=RF_PASS,label:`${st[1]} Recall Final`,sub:`Checkpoint in your own words: ${RF_PASS}%+`+(f.best!=null?` · best ${f.best}%`:''),go:`go('rfinal','${st[1]}')`,kind:'Checkpoint'}}
+ if(t=='RF'){const f=S.rfinals[st[1]]||{};return {done:(f.best||0)>=RF_PASS,label:`${st[1]} Recall Final`,sub:`15 multiple-choice questions: ${RF_PASS}%+`+(f.best!=null?` · best ${f.best}%`:''),go:`go('rfinal','${st[1]}')`,kind:'Checkpoint'}}
  if(t=='SX'){const b=(S.specx||{}).best;return {done:(b||0)>=st[1],label:'Pass the Spec Exam',sub:`Type 10 full specs from memory: ${st[1]}%+`+(b!=null?` · best ${b}%`:''),go:`go('specexam')`,kind:'Checkpoint'}}
  if(t=='MI'){const b=(S.coach||{}).best||0;return {done:b>=st[1],label:`Score ${st[1]}+ in a mock interview`,sub:`Coach · best ${b||'—'}`,go:`go('coach')`,kind:'Coach'}}
  if(t=='PR'){const L2={rounds:['timed rounds',x=>true],jigger:['jigger pours within 5%',accurate],tastings:['tastings',x=>true]}[st[1]];const k=logOf(st[1]).filter(L2[1]).length;return {done:k>=st[2],label:`Log ${st[2]} ${L2[0]}`,sub:`Practice Log · ${Math.min(k,st[2])}/${st[2]}`,go:`go('practice','${st[1]}')`,kind:'Practice log'}}
@@ -819,7 +819,7 @@ function lesson(id){const l=L(id),s=ls(id);s.read=true;save();const i=COURSE.ind
 // exam engine: mcq items + short-answer items
 function runExam({title,sub,mcqs,sas,onDone}){const ans={},sa={};
  const render=()=>{$(`${sub}<h1>${title}</h1>${sub.includes('LESSON')?TABS4(2):''}
- <h2>Part A — Multiple choice</h2>${mcqs.map((m,n)=>`<div class="card"><b>${n+1}. ${esc(m.q[0])}</b>${m.opts.map((o,k)=>`<button class="opt" data-n="${n}" data-k="${k}">${String.fromCharCode(65+k)}) ${esc(o)}</button>`).join('')}</div>`).join('')}
+ ${mcqs.map((m,n)=>`<div class="card"><b>${n+1}. ${esc(m.q[0])}</b>${m.opts.map((o,k)=>`<button class="opt" data-n="${n}" data-k="${k}">${String.fromCharCode(65+k)}) ${esc(o)}</button>`).join('')}</div>`).join('')}
  ${sas.length?`<h2>Part B — Short answer</h2><p class="mute">Write your answer the way you'd explain it to a guest. You'll compare it with the correct answer after you submit.</p>${sas.map((c,n)=>`<div class="card"><b>${mcqs.length+n+1}. ${esc(c[0])}</b><textarea data-sa="${n}" placeholder="Your answer…"></textarea></div>`).join('')}`:''}
  <div class="row"><button class="btn" id="sub">Submit exam</button></div><div id="warn" class="mute"></div>`);
  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const n=b.dataset.n;ans[n]=+b.dataset.k;document.querySelectorAll(`.opt[data-n="${n}"]`).forEach(x=>x.classList.toggle('sel',x==b))});
@@ -832,7 +832,7 @@ function runExam({title,sub,mcqs,sas,onDone}){const ans={},sa={};
   wireExamCoach(sas,sa);fin.onclick=()=>{const saR=Object.values(g).reduce((a,b)=>a+b,0),tot=mcqs.length+sas.length,p=Math.round((right+saR)/tot*100);onDone(p,mcqs.map((m,n)=>({m,pick:m.opts[ans[n]]})),sas.map((c,n)=>({c,ok:g[n]})))};if(!sas.length)fin.click()};
  render()}
 function mk(q,l){return {q,l,opts:sh(q.slice(1,5))}}
-function exam(id){const l=L(id);runExam({title:l.title+' — Exam',sub:`<div class="mute" style="font-size:13px">${l.track.toUpperCase()} · LESSON ${l.id.slice(1)} EXAM</div>`,mcqs:sh(l.q).map(q=>mk(q,l)),sas:sh(l.c).slice(0,4),
+function exam(id){const l=L(id);runExam({title:l.title+' — Exam',sub:`<div class="mute" style="font-size:13px">${l.track.toUpperCase()} · LESSON ${l.id.slice(1)} EXAM</div>`,mcqs:sh([...l.q,...cardQs(l,4)]).map(q=>mk(q,l)),sas:[],
  onDone:(p,mr,sr)=>{const s=ls(id);s.best=Math.max(s.best??0,p);s.attempts=(s.attempts||0)+1;s.last=Date.now();(s.hist=s.hist||[]).push(p);save();const i=COURSE.indexOf(l),nx=COURSE[i+1];
  $(`<h1>${l.title}: ${p}%</h1>${TABS4(3)}
  <div class="card" style="border-color:${p>=PASS?'var(--ok)':'var(--bad)'}"><h3>${p>=PASS?'Passed. Nice work.':`Not passed yet. You need ${PASS}%.`}</h3><p class="mute" style="margin:0">${p>=PASS?'This lesson will come back as a retake tomorrow to lock it in.':'Go over the questions you missed below, reread the lesson, then try again. Getting questions wrong and correcting them is a big part of how you learn this.'}</p></div>
@@ -840,7 +840,7 @@ function exam(id){const l=L(id);runExam({title:l.title+' — Exam',sub:`<div cla
  ${sr.filter(x=>!x.ok).map(({c})=>`<div class="card"><b>✗ ${esc(c[0])}</b><div class="fb" style="background:var(--okbg)">${esc(c[1])}</div></div>`).join('')}
  <div class="row">${p<PASS?`<button class="btn" onclick="go('lesson','${id}')">Reread the lesson</button><button class="btn alt" onclick="go('exam','${id}')">Retake exam</button>`:nextBtnHTML(id,nx)}<button class="btn alt" onclick="go('path')">My Path</button></div>`)}})}
 function finals(){const t=tr=>{const arr=COURSE.filter(l=>l.track==tr),d=arr.filter(l=>status(l)=='done').length,f=S.finals[tr]||{};
- return `<div class="card"><h3>${tr} Final Exam</h3><p class="mute">${Math.min(30,arr.reduce((a,l)=>a+l.q.length,0))} questions mixed from all ${arr.length} ${tr.toLowerCase()} lessons. ${d<arr.length?`You've passed ${d} of ${arr.length} lessons. You can take it now, but it'll be easier once you've passed them all.`:'You have passed every lesson.'}</p>${f.best!=null?`<p>Best score: <b>${f.best}%</b> (${f.attempts} attempt${f.attempts>1?'s':''})</p>`:''}<div class="row" style="margin:0"><button class="btn" onclick="go('final','${tr}')">Multiple-choice final</button><button class="btn alt" onclick="go('rfinal','${tr}')">Recall final (own words)</button></div>${(S.rfinals[tr]||{}).best!=null?`<p class="mute" style="margin:8px 0 0">Recall final best: <b>${S.rfinals[tr].best}%</b></p>`:''}</div>`};
+ return `<div class="card"><h3>${tr} Final Exam</h3><p class="mute">${Math.min(30,arr.reduce((a,l)=>a+l.q.length,0))} questions mixed from all ${arr.length} ${tr.toLowerCase()} lessons. ${d<arr.length?`You've passed ${d} of ${arr.length} lessons. You can take it now, but it'll be easier once you've passed them all.`:'You have passed every lesson.'}</p>${f.best!=null?`<p>Best score: <b>${f.best}%</b> (${f.attempts} attempt${f.attempts>1?'s':''})</p>`:''}<div class="row" style="margin:0"><button class="btn" onclick="go('final','${tr}')">Multiple-choice final</button><button class="btn alt" onclick="go('rfinal','${tr}')">Recall final</button></div>${(S.rfinals[tr]||{}).best!=null?`<p class="mute" style="margin:8px 0 0">Recall final best: <b>${S.rfinals[tr].best}%</b></p>`:''}</div>`};
  $(`<h1>Final Exams</h1><p class="mute">These are cumulative, so questions from different lessons are mixed together, like the questions guests actually ask you. Aim for 85% or higher.</p>${TRACKS.map(t).join('')}`)}
 function final(tr){const qs=sh(COURSE.filter(l=>l.track==tr).flatMap(l=>l.q.map(q=>mk(q,l)))).slice(0,30);
  runExam({title:tr+' Final Exam',sub:'<div class="mute" style="font-size:13px">CUMULATIVE FINAL</div>',mcqs:qs,sas:[],onDone:(p,mr)=>{const f=S.finals[tr]=S.finals[tr]||{};f.best=Math.max(f.best??0,p);f.attempts=(f.attempts||0)+1;save();
@@ -850,10 +850,10 @@ function final(tr){const qs=sh(COURSE.filter(l=>l.track==tr).flatMap(l=>l.q.map(
  <div class="row"><button class="btn" onclick="go('path')">Back to My Path</button><button class="btn alt" onclick="go('finals')">All finals</button></div>`)}})}
 function drills(){let i=0;const o=sh(SCENARIOS.map(s=>s[2]));const nailed=Object.values(S.drills).filter(x=>x).length;
  const step=()=>{if(i>=o.length)return go('drills');const k=o[i],s=SCENARIOS.find(x=>x[2]==k);
- $(`<div class="kind">Bar Drills</div><h1>${S.drills[k]?'Nailed before · ':''}Situation ${i+1} of ${o.length}</h1><p class="mute">Write what you'd actually say, then compare with the model answer or ask the coach. You've nailed ${nailed} of ${SCENARIOS.length}.</p>
- <div class="card"><h2 style="margin-top:0">${esc(s[0])}</h2><textarea id="a" placeholder="What would you say?"></textarea><div id="r"><div class="row"><button class="btn" id="rv">Show model answer</button><button class="btn alt" id="skip">Skip</button></div></div></div>`);
+ $(`<div class="kind">Bar Drills</div><h1>${S.drills[k]?'Nailed before · ':''}Situation ${i+1} of ${o.length}</h1><p class="mute">Say out loud what you'd tell the guest, then reveal the model answer and be honest with yourself. You've nailed ${nailed} of ${SCENARIOS.length}.</p>
+ <div class="card"><h2 style="margin-top:0">${esc(s[0])}</h2><div id="r"><div class="row"><button class="btn" id="rv">Show model answer</button><button class="btn alt" id="skip">Skip</button></div></div></div>`);
  document.getElementById('skip').onclick=()=>{i++;step()};
- document.getElementById('rv').onclick=()=>{document.getElementById('r').innerHTML=`<div class="fb ok-bg">${esc(s[1])}</div><div class="row"><button class="btn alt" id="m">I missed key points</button><button class="btn" id="n">I nailed it</button><button class="btn alt" id="cbtn">Get coach feedback</button></div><div id="cfb"></div>`;wireDrillCoach(s);
+ document.getElementById('rv').onclick=()=>{document.getElementById('r').innerHTML=`<div class="fb ok-bg">${esc(s[1])}</div><div class="row"><button class="btn alt" id="m">I missed key points</button><button class="btn" id="n">I nailed it</button></div>`;
  const nx=v=>{S.drills[k]=v;save();i++;step()};document.getElementById('m').onclick=()=>nx(0);document.getElementById('n').onclick=()=>nx(1)}};step()}
 
 // ===== Premium UI layer: overrides home() and path(), adds track pages =====
@@ -939,14 +939,16 @@ function track(tr){const arr=COURSE.filter(l=>l.track==tr);if(!arr.length){go('h
  <div class="hero-ring">${ring(d/arr.length,112,7,d+'/'+arr.length)}<span class="mute ringcap">passed</span></div></section>
  <div class="card flush">${arr.map((l,n)=>{const s=S.lessons[l.id]||{},st=status(l),due=dueRetake(l);return `<div class="lrow" onclick="go('lesson','${l.id}')"><div class="num ${st}">${st=='done'?'✓':n+1}</div><div style="flex:1;min-width:0"><b>${esc(l.title)}</b><div class="mute" style="font-size:13px">${s.best!=null?`Best ${s.best}% · ${s.attempts} attempt${s.attempts>1?'s':''}`:s.read?'Reading started':'Not started'}</div></div>${due?'<span class="pill due">Retake due</span>':st=='done'?'<span class="pill ok">Passed</span>':'<span class="go">›</span>'}</div>`}).join('')}</div>`)}
 
+// Close-call wrong answers: other flashcard answers that share words/numbers with this one
+const _words=t=>new Set(String(t).toLowerCase().match(/[a-z0-9%½¼¾]{3,}/g)||[]);
+function nearOpts(c,pool){const w=_words(c.q+' '+c.a),dig=/\d/.test(c.a),len=c.a.length;
+ return sh(pool.filter(x=>x.a!==c.a)).map(x=>{let sc=0;_words(x.a+' '+x.q).forEach(t=>{if(w.has(t))sc+=1});if(dig&&/\d/.test(x.a))sc+=3;if(!dig&&/\d/.test(x.a))sc-=1;sc-=Math.abs(x.a.length-len)/40;if(x.own)sc+=.5;return [sc,x.a]}).sort((a,b)=>b[0]-a[0]).filter((x,i,arr)=>arr.findIndex(y=>y[1]===x[1])===i).slice(0,3).map(x=>x[1])}
 // ===== Practice: step 2 of every lesson (flashcards, then a quick check with instant feedback) =====
 const TABS4=(on)=>`<div class="tabs tabs4">${['Read','Practice','Exam','Results'].map((t,i)=>`<span class="${i==on?'on':''}">${i+1}. ${t}</span>`).join('')}</div>`;
 function prac(id){const l=L(id);if(!l){go('path');return}
  const cards=l.c.map(c=>({q:c[0],a:c[1]}));
  const pool=COURSE.filter(x=>x.track==l.track).flatMap(x=>x.c.map(c=>({q:c[0],a:c[1],own:x.id==l.id})));
- const words=t=>new Set(String(t).toLowerCase().match(/[a-z0-9%½¼¾]{3,}/g)||[]);
- const near=c=>{const w=words(c.q+' '+c.a),dig=/\d/.test(c.a),len=c.a.length;
-  return sh(pool.filter(x=>x.a!==c.a)).map(x=>{let sc=0;words(x.a+' '+x.q).forEach(t=>{if(w.has(t))sc+=1});if(dig&&/\d/.test(x.a))sc+=3;if(!dig&&/\d/.test(x.a))sc-=1;sc-=Math.abs(x.a.length-len)/40;if(x.own)sc+=.5;return [sc,x.a]}).sort((a,b)=>b[0]-a[0]).filter((x,i,arr)=>arr.findIndex(y=>y[1]===x[1])===i).slice(0,3).map(x=>x[1])};
+ const near=c=>nearOpts(c,pool);
  let deck=sh(cards.slice()),seen=0,stage='cards',checks=[],ci=0,miss=0;
  const head=()=>`<div class="kind">${esc(l.track)} · Lesson ${esc(l.id.slice(1))} · Practice</div><h1>${esc(l.title)}</h1>${TABS4(1)}`;
  const bar=(n,t)=>`<div class="pr-prog"><span style="width:${Math.round(n/t*100)}%"></span></div><div class="pr-count">${n} of ${t}</div>`;
@@ -983,6 +985,47 @@ function prac(id){const l=L(id);if(!l){go('path');return}
    <div class="row"><button class="btn" onclick="go('exam','${l.id}')">Start the exam</button><button class="btn alt" onclick="go('prac','${l.id}')">Practice again</button></div></div></section>
    <p class="pr-skip"><a href="#" onclick="go('lesson','${l.id}');return false">‹ Back to the reading</a></p>`)};
  render()}
+
+
+// ===== Multiple-choice runner for finals (no typing) =====
+function mcRun({kind,title,intro,items,pass,onDone,back}){const ans={};
+ $(`<div class="kind">${esc(kind)}</div><h1>${esc(title)}</h1><p class="lede">${intro}</p>
+ ${items.map((it,n)=>`<div class="card"><b>${n+1}. ${esc(it.q)}</b>${it.opts.map((o,k)=>`<button class="opt" data-n="${n}" data-k="${k}">${'ABCD'[k]}) ${esc(o)}</button>`).join('')}</div>`).join('')}
+ <div class="row"><button class="btn" id="mcsub">Submit</button></div><div id="mcwarn" class="mute"></div>`);
+ document.querySelectorAll('.opt[data-n]').forEach(b=>b.onclick=()=>{const n=+b.dataset.n;ans[n]=+b.dataset.k;document.querySelectorAll(`.opt[data-n="${n}"]`).forEach(x=>x.classList.toggle('sel',x===b))});
+ document.getElementById('mcsub').onclick=()=>{if(Object.keys(ans).length<items.length){document.getElementById('mcwarn').textContent=`Answer every question (${items.length-Object.keys(ans).length} left). A guess is fine.`;return}
+  let right=0;const weak={};items.forEach((it,n)=>{const ok=it.opts[ans[n]]===it.a;if(ok)right++;else if(it.l)weak[it.l.id]=(weak[it.l.id]||0)+1});
+  const p=Math.round(right/items.length*100);onDone(p);
+  $(`<div class="kind">${esc(kind)}</div><h1>${esc(title)}: ${p}%</h1><div class="card" style="border-color:${p>=pass?'var(--ok)':'var(--bad)'}"><h3>${p>=pass?'Passed.':`Not yet. You need ${pass}%.`}</h3>
+   ${Object.keys(weak).length?`<p class="mute">Lessons to review:</p>`+Object.entries(weak).map(([id,n])=>`<div class="lrow" onclick="go('lesson','${id}')"><div style="flex:1">${esc(L(id).title)}</div><span class="pill due">${n} missed</span></div>`).join(''):''}</div>
+   ${items.map((it,n)=>{const ok=it.opts[ans[n]]===it.a;return `<div class="card"><b>${n+1}. ${esc(it.q)}</b><div class="fb ${ok?'ok-bg':''}">${ok?'✓':'✗ You chose: '+esc(it.opts[ans[n]])}</div>${ok?'':`<div class="fb ok-bg">Correct: ${esc(it.a)}</div>`}</div>`}).join('')}
+   <div class="row"><button class="btn" onclick="go('path')">My Path</button><button class="btn alt" id="mcback">Back</button></div>`);
+  document.getElementById('mcback').onclick=back;scrollTo(0,0)}}
+
+// Recall final: 15 multiple-choice questions drawn from the track's flashcards
+function rfinal(tr){const pool=COURSE.filter(l=>l.track==tr).flatMap(l=>l.c.map(c=>({q:c[0],a:c[1],l})));
+ const items=sh(pool).slice(0,15).map(c=>({q:c.q,a:c.a,l:c.l,opts:sh([c.a,...nearOpts(c,pool)])}));
+ mcRun({kind:tr+' · Recall final',title:tr+' Recall Final',intro:`${items.length} questions from across the ${esc(tr)} flashcards. Pass at ${RF_PASS}%.`,items,pass:RF_PASS,
+  onDone:p=>{const f=S.rfinals[tr]=S.rfinals[tr]||{};f.best=Math.max(f.best||0,p);f.attempts=(f.attempts||0)+1;save()},back:()=>go('finals')})}
+
+// Spec exam: pick the correct spec out of four near-identical ones
+const _AMT=['1 dash','2 dashes','¼ oz','½ oz','¾ oz','1 oz','1¼ oz','1½ oz','1¾ oz','2 oz','2¼ oz','2½ oz','3 oz'];
+function _mutSpec(spec){const re=/(\d+\s?[½¼¾]?|[½¼¾]) ?oz|\d+ dashe?s?/g;const hits=[...spec.matchAll(re)];if(!hits.length)return null;
+ const h=hits[Math.floor(Math.random()*hits.length)];let tok=h[0].replace(/(\d)\s([½¼¾])/,'$1$2').replace(/ ?oz/,' oz');if(/dash/.test(tok))tok=tok.startsWith('1 ')?'1 dash':tok.replace(/^(\d+) dashe?s?$/,(m,n)=>n=='1'?'1 dash':n+' dashes');
+ let i=_AMT.indexOf(tok);if(i<0)return null;const d=sh([-2,-1,1,2]).find(x=>_AMT[i+x]&&(/dash/.test(tok)==/dash/.test(_AMT[i+x])));if(d==null)return null;
+ return spec.slice(0,h.index)+_AMT[i+d]+spec.slice(h.index+h[0].length)}
+function specexam(){const pick=sh(SPECS).slice(0,10);
+ const items=pick.map(s=>{const right=s[2],opts=new Set([right]);let tries=0;
+  while(opts.size<4&&tries++<40){const m=_mutSpec(right);if(m&&m!==right)opts.add(m)}
+  sh(SPECS.filter(x=>x[1]==s[1]&&x!==s)).forEach(x=>{if(opts.size<4)opts.add(x[2])});
+  sh(SPECS.filter(x=>x!==s)).forEach(x=>{if(opts.size<4)opts.add(x[2])});
+  return {q:`${s[0]}: which spec is right?`,a:right,opts:sh([...opts])}});
+ mcRun({kind:'Spec exam',title:'Spec Exam',intro:`Ten classics. Each has four specs that look alike; only one has the right amounts. Pass at ${RF_PASS}%.`,items,pass:RF_PASS,
+  onDone:p=>{S.specx=S.specx||{};S.specx.best=Math.max(S.specx.best||0,p);S.specx.attempts=(S.specx.attempts||0)+1;save()},back:()=>go('specs')})}
+
+// Extra exam questions built from a lesson's flashcards (replaces the old typed short answers)
+function cardQs(l,n){const pool=COURSE.filter(x=>x.track==l.track).flatMap(x=>x.c.map(c=>({q:c[0],a:c[1],own:x.id==l.id})));
+ return sh(l.c).slice(0,n).map(c=>{const w=nearOpts({q:c[0],a:c[1]},pool);return w.length<3?null:[c[0],c[1],...w,'']}).filter(Boolean)}
 
 // ===== Web app adapter: Supabase login, synced progress, private content, AI coach =====
 const SB_URL='https://dxctmyonzgsqlkcoagga.supabase.co';
