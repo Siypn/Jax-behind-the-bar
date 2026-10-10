@@ -496,6 +496,52 @@ mark.rule{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--win
 .confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:100}
 @media (max-width:700px){.hero .rankrow{padding-right:88px}.gm>span:first-child{width:64px}.gm-bar i{width:16px}}
 
+/* ===== Track covers, colored course cards, story mode ===== */
+.cover{position:relative;overflow:hidden;border-radius:28px;padding:30px 28px 26px;margin:6px 0 18px;color:#f8efe0;
+ background:radial-gradient(120% 90% at 100% 0%,rgba(226,200,143,.22),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(0,0,0,.35),transparent 60%),var(--tc);
+ box-shadow:0 24px 50px -30px var(--tc),inset 0 0 0 1px rgba(226,200,143,.25)}
+.cover-art{position:absolute;right:-14px;top:-6px;color:#e2c88f;opacity:.85;pointer-events:none}
+.cover-art .tart{width:150px;height:150px}
+.cover-in{position:relative;z-index:1;max-width:80%}
+.cover-k{font-size:13px;letter-spacing:.04em;color:#e2c88f;margin-bottom:8px}
+.cover-t{font:500 clamp(38px,9vw,56px)/1.02 var(--serif);margin:0 0 14px;color:#fff8ec;letter-spacing:-.01em}
+.cover-lede{color:rgba(248,239,224,.82);font-size:16.5px;margin:0 0 14px}
+.cover .lstat{background:rgba(255,255,255,.08);border-color:rgba(226,200,143,.35);color:rgba(248,239,224,.75)}.cover .lstat b{color:#fff8ec}
+.cover-best{margin:12px 0 0;color:#e2c88f;font-size:14px}
+.cover .row{margin-top:18px}
+.cover-btn{background:linear-gradient(180deg,#f3e1b4,#d9b878)!important;color:#1d140a!important;border-color:transparent!important;box-shadow:0 10px 24px -12px rgba(0,0,0,.6)!important}
+.cover-alt{background:transparent!important;color:#f8efe0!important;border-color:rgba(226,200,143,.45)!important}
+.cover-prog{height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden;margin:4px 0 0;max-width:320px}.cover-prog i{display:block;height:100%;background:#e2c88f}
+.course{overflow:hidden;padding-top:0!important}
+.course .course-top{margin:0 -18px 12px;padding:14px 16px;background:radial-gradient(120% 100% at 100% 0%,rgba(226,200,143,.2),transparent 60%),var(--tc);color:#e2c88f;display:flex;justify-content:space-between;align-items:center;min-height:82px}
+.course .ring circle:first-child{stroke:rgba(255,255,255,.18)}
+.course .ring text,.course .ring .ringtxt{fill:#fff8ec}
+@media (max-width:700px){.course .course-top{margin:0 -15px 12px}}
+.story{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;color:#f8efe0;padding:calc(env(safe-area-inset-top,0px) + 12px) 18px calc(env(safe-area-inset-bottom,0px) + 18px);
+ background:radial-gradient(120% 70% at 100% 0%,rgba(226,200,143,.18),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(0,0,0,.4),transparent 60%),var(--tc);animation:stIn .25s ease}
+@keyframes stIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+.st-bars{display:flex;gap:4px;max-width:720px;width:100%;margin:0 auto}.st-bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.2)}.st-bars i.d{background:#e2c88f}.st-bars i.c{background:linear-gradient(90deg,#e2c88f 40%,rgba(255,255,255,.2) 40%)}
+.st-top{display:flex;justify-content:space-between;align-items:center;max-width:720px;width:100%;margin:10px auto 0;font-size:14px;color:rgba(248,239,224,.75)}
+.st-x{background:none;border:0;color:#f8efe0;font-size:20px;padding:6px 10px;cursor:pointer;position:relative;z-index:3}
+.st-stage{flex:1;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:10px 0}
+.st-card{max-width:640px;width:100%;animation:stCard .3s ease}
+@keyframes stCard{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.st-n{font-size:14px;color:#e2c88f;margin-bottom:12px}
+.st-card h2{font:500 clamp(34px,8vw,52px)/1.05 var(--serif);margin:0 0 16px;color:#fff8ec}
+.st-card p{font-size:20px;line-height:1.6;margin:0;color:rgba(248,239,224,.92)}
+.story .amt{color:#f0d29a}
+.story .dchip{background:rgba(255,255,255,.1);border-color:rgba(226,200,143,.5);color:#fff8ec;position:relative;z-index:3}
+.story mark.rule{background:linear-gradient(transparent 62%,rgba(226,200,143,.35) 62%)}
+.story .spec{background:rgba(0,0,0,.22);border-color:rgba(226,200,143,.25);color:#f8efe0}.story .spec-row{border-color:rgba(255,255,255,.12)}.story .spec-bar{background:rgba(255,255,255,.12)}
+.story .spec .kind,.story .spec-how em{color:#e2c88f}.story .spec-fam{color:rgba(248,239,224,.6)}
+.st-prev,.st-next{position:absolute;top:90px;bottom:60px;background:none;border:0;cursor:pointer;z-index:2}.st-prev{left:0;width:30%}.st-next{right:0;width:70%}
+.st-hint{text-align:center;font-size:12.5px;color:rgba(248,239,224,.55)}
+.st-end{text-align:center}.st-end .st-art{color:#e2c88f;margin-bottom:10px}.st-end .row{justify-content:center}
+.st-btn{background:linear-gradient(180deg,#f3e1b4,#d9b878)!important;color:#1d140a!important;border-color:transparent!important}
+.st-alt{background:transparent!important;color:#f8efe0!important;border-color:rgba(226,200,143,.45)!important}
+@media (max-width:700px){.cover{padding:24px 20px 22px;border-radius:24px}.cover-in{max-width:100%}.cover-art{right:-30px;top:-20px;opacity:.35}.st-card p{font-size:18.5px}}
+@media (prefers-reduced-motion:reduce){.story,.st-card{animation:none}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
@@ -997,7 +1043,7 @@ function path(){const ls=levelState(),cur=ls.find(x=>!x.complete)||ls[ls.length-
  ${ornament}
  <h2 class="sect" id="expert">Expert tracks</h2><p class="mute sub">Open anytime. Exam-format topics for wine, sake and beer, plus the masters of mixology.</p>
  <div class="gallery">${EXPERT.map(e=>{const lsn=COURSE.filter(l=>l.track==e.track);if(!lsn.length)return '';const d=lsn.filter(l=>status(l)=='done').length;
-  return `<button class="course" onclick="go('track','${e.track}')"><span class="course-top">${ticon(e.track,30)}${ring(d/lsn.length,44,4)}</span><b>${esc(e.track)}</b><span class="mute">${lsn.length} lessons${e.sim?' · timed exam':''}</span></button>`}).join('')}</div>
+  return `<button class="course" style="--tc:${tcol(e.track)}" onclick="go('track','${e.track}')"><span class="course-top"><span class="ct-art">${trackArt(e.track,54)}</span>${ring(d/lsn.length,44,4)}</span><b>${esc(e.track)}</b><span class="mute">${lsn.length} lessons${e.sim?' · timed exam':''}</span></button>`}).join('')}</div>
  <details class="card how"><summary><b>How the path works</b></summary><p class="mute">Each lesson: read it, say the main points out loud, then pass the exam at ${PASS}%. Level checkpoints (finals) need ${FINAL_PASS}%. Retakes come back after 1 day, 1 week and 1 month; do them when they're due. Practice steps are checked off by you or counted from your Practice log.</p></details>
  <p class="save"><span id="sync">${SYNC}</span></p>`);
  document.querySelectorAll('.pstep input').forEach(c=>c.onchange=()=>{S.plan[c.id]=c.checked?1:0;save();const y=scrollY;path();scrollTo(0,y)});
@@ -1005,7 +1051,7 @@ function path(){const ls=levelState(),cur=ls.find(x=>!x.complete)||ls[ls.length-
 
 function home(){const done=COURSE.filter(l=>status(l)=='done').length;
  const card=tr=>{const arr=COURSE.filter(l=>l.track==tr),d=arr.filter(l=>status(l)=='done').length,due=arr.filter(dueRetake).length;
-  return `<button class="course" onclick="go('track','${tr.replace(/'/g,"\\'")}')"><span class="course-top">${ticon(tr,30)}${ring(arr.length?d/arr.length:0,44,4)}</span><b>${esc(tr)}</b><span class="mute">${arr.length} lesson${arr.length>1?'s':''}${due?` · <span class="due-t">${due} due</span>`:''}</span></button>`};
+  return `<button class="course" style="--tc:${tcol(tr)}" onclick="go('track','${tr.replace(/'/g,"\\'")}')"><span class="course-top"><span class="ct-art">${trackArt(tr,54)}</span>${ring(arr.length?d/arr.length:0,44,4)}</span><b>${esc(tr)}</b><span class="mute">${arr.length} lesson${arr.length>1?'s':''}${due?` · <span class="due-t">${due} due</span>`:''}</span></button>`};
  const groups=[['Foundations',['Start Here','Cocktails','Mixology','Fine Dining']],['Product knowledge',['Spirits','Wine','Sake','Beer']],['Your bar',['Mott 32']],['Expert & exam prep',['Masters of Mixology','Advanced','Wine Exam Prep','Sake Exam Prep','Beer Exam Prep','Electives']]];
  $(`${RING_DEFS}<div class="kind">The Library</div><h1 class="display">Every lesson, one shelf</h1><p class="lede">${COURSE.length} lessons and ${COURSE.reduce((a,l)=>a+l.q.length,0)} exam questions. ${done} passed so far.</p>
  <div class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search lessons: Negroni, Sancerre, kōji…" aria-label="Search lessons" autocomplete="off"></div>
@@ -1021,9 +1067,7 @@ function home(){const done=COURSE.filter(l=>status(l)=='done').length;
 
 function track(tr){const arr=COURSE.filter(l=>l.track==tr);if(!arr.length){go('home');return}const d=arr.filter(l=>status(l)=='done').length,next=arr.find(l=>status(l)!='done')||arr[0];
  const sim=(typeof EXPERT!=='undefined'&&EXPERT.find(e=>e.track==tr)||{}).sim;
- $(`${RING_DEFS}<button class="back" onclick="go('home')">‹ Library</button><section class="hero small"><div class="hero-main"><div class="kind">${ticon(tr,18)} Course</div><h1 class="display">${esc(tr)}</h1><p class="lede">${NOTE[tr]||''}</p>
- <div class="row"><button class="btn" onclick="go('lesson','${next.id}')">${d?'Continue':'Start'}: ${esc(next.title)}</button><button class="btn alt" onclick="go('final','${tr}')">Final exam</button>${sim?`<button class="btn alt" onclick="go('examsim','${sim}')">Timed simulation</button>`:''}</div></div>
- <div class="hero-ring">${ring(d/arr.length,112,7,d+'/'+arr.length)}<span class="mute ringcap">passed</span></div></section>
+ $(`${RING_DEFS}<button class="back" onclick="go('home')">‹ Library</button>${cover(tr,`<div class="cover-k">Course · ${d} of ${arr.length} passed</div><h1 class="cover-t">${esc(tr)}</h1><p class="cover-lede">${NOTE[tr]||''}</p><div class="cover-prog"><i style="width:${Math.round(d/arr.length*100)}%"></i></div><div class="row"><button class="btn cover-btn" onclick="go('lesson','${next.id}')">${d?'Continue':'Start'}: ${esc(next.title)}</button><button class="btn alt cover-alt" onclick="go('final','${tr}')">Final exam</button>${sim?`<button class="btn alt cover-alt" onclick="go('examsim','${sim}')">Timed simulation</button>`:''}</div>`)}
  <div class="card flush">${arr.map((l,n)=>{const s=S.lessons[l.id]||{},st=status(l),due=dueRetake(l);return `<div class="lrow" onclick="go('lesson','${l.id}')"><div class="num ${st}">${st=='done'?'✓':n+1}</div><div style="flex:1;min-width:0"><b>${esc(l.title)}</b><div class="mute" style="font-size:13px">${s.best!=null?`Best ${s.best}% · ${s.attempts} attempt${s.attempts>1?'s':''}`:s.read?'Reading started':'Not started'}</div></div>${due?'<span class="pill due">Retake due</span>':st=='done'?'<span class="pill ok">Passed</span>':'<span class="go">›</span>'}</div>`}).join('')}</div>`)}
 
 // Close-call wrong answers: other flashcard answers that share words/numbers with this one
@@ -1152,9 +1196,10 @@ function lesson(id){const l=L(id);if(!l){go('path');return}const s=ls(id);s.read
  const words=((l.b||'').replace(/<[^>]+>/g,' ')+' '+l.k.join(' ')).split(/\s+/).length,mins=Math.max(3,Math.round(words/200));
  const stat=(n,t)=>`<span class="lstat"><b>${n}</b>${t}</span>`;
  $(`${RING_DEFS}<div id="rprog" class="rprog"><i></i></div><button class="back" onclick="go('track','${esc(l.track)}')">‹ ${esc(l.track)}</button>
- <section class="hero small lhero"><div class="hero-main"><div class="kind">${ticon(l.track,18)} ${esc(l.track)} · Lesson ${esc(l.id.replace(/^\D+/,''))} of ${tot}</div><h1 class="display">${esc(l.title)}</h1>
-  <div class="lstats">${stat(mins+' min','read')}${stat(l.k.length,'key ideas')}${stat(l.c.length,'flashcards')}${l.pro?stat(l.pro.length,'pro scenarios'):''}</div>
-  ${s.best!=null?`<p class="lede" style="margin:10px 0 0">Best exam score: <b>${s.best}%</b>${s.best>=PASS?' · passed':''}</p>`:''}</div></section>
+ ${cover(l.track,`<div class="cover-k">${esc(l.track)}, lesson ${esc(l.id.replace(/^\D+/,''))} of ${tot}</div><h1 class="cover-t">${esc(l.title)}</h1>
+  <div class="lstats">${stat(mins+' min','read')}${stat(l.k.length,'key ideas')}${stat(l.c.length,'flashcards')}${l.pro?stat(l.pro.length,'scenarios'):''}</div>
+  ${s.best!=null?`<p class="cover-best">Best exam score ${s.best}%${s.best>=PASS?', passed':''}</p>`:''}
+  <div class="row"><button class="btn cover-btn" onclick="story('${id}')">${l.b?'Flip through the key ideas':'Start the lesson'}</button></div>`)}
  ${TABS4(0)}
  ${l.b?`<article class="card book"><div class="book-by">${l.track=='Wine'?'The Wine Course':'The Spirits Course'} · Basic · by Jax Venegas</div>${bookWithChecks(l)}${l.ref?`<details class="book-ref"><summary>Reference: source &amp; accuracy notes</summary>${l.ref}</details>`:''}</article>
   <details class="card qrev"><summary><span class="kind">Quick review</span><b>${l.k.length} key ideas from this chapter</b></summary>${richIdeas(l)}</details>`
@@ -1237,6 +1282,50 @@ function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)re
  const W=c.width=innerWidth*devicePixelRatio,H=c.height=innerHeight*devicePixelRatio;const cols=['#e2c88f','#a8823f','#9b1b26','#fff4dc','#c12a36'];
  const P=Array.from({length:140},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*16*devicePixelRatio,vy:(-Math.random()*16-6)*devicePixelRatio,r:(Math.random()*5+3)*devicePixelRatio,c:cols[Math.random()*5|0],a:Math.random()*6,s:Math.random()*.3+.1}));
  let t=0;(function f(){x.clearRect(0,0,W,H);P.forEach(p=>{p.vy+=.45*devicePixelRatio;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.a+=p.s;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r,-p.r/3,p.r*2,p.r*.66);x.restore()});if(++t<140)requestAnimationFrame(f);else c.remove()})()}
+
+// ===== Track identity: a color and a line illustration per course =====
+const TRACK_LOOK={
+ 'Start Here':['#1b1714','star'],'Cocktails':['#8f1d28','coupe'],'Mixology':['#5c2418','shaker'],'Fine Dining':['#1d3a32','cloche'],
+ 'Wine':['#5a1630','wine'],'Spirits':['#7a4a17','barrel'],'Sake':['#1f2c55','tokkuri'],'Beer':['#7c5b10','pint'],
+ 'Masters of Mixology':['#2a2320','laurel'],'Advanced':['#26313a','beaker'],'Electives':['#3a2236','fan'],'Mott 32':['#3b0f12','lantern'],
+ 'Wine Exam Prep':['#4a1228','wine'],'Sake Exam Prep':['#18234a','tokkuri'],'Beer Exam Prep':['#6a4d0c','pint']};
+const tcol=t=>(TRACK_LOOK[t]||['#2a2320'])[0];
+const ART={
+ star:'<path d="M50 14 L59 41 L88 41 L64 58 L73 86 L50 69 L27 86 L36 58 L12 41 L41 41 Z"/><circle cx="50" cy="52" r="6"/>',
+ coupe:'<path d="M16 26 Q50 70 84 26 Z"/><path d="M50 58 V88 M34 90 H66"/><path d="M22 34 Q50 40 78 34"/><circle cx="74" cy="22" r="8"/><path d="M68 28 L60 40"/>',
+ shaker:'<path d="M34 30 H66 L62 90 H38 Z"/><path d="M36 30 Q36 18 44 16 H56 Q64 18 64 30"/><path d="M44 16 V10 H56 V16"/><path d="M38 48 H62"/>',
+ cloche:'<path d="M14 72 H86"/><path d="M20 72 Q20 34 50 34 Q80 34 80 72"/><circle cx="50" cy="28" r="5"/><path d="M10 80 H90"/><path d="M32 52 Q38 44 46 42"/>',
+ wine:'<path d="M34 12 H66 Q70 44 50 56 Q30 44 34 12 Z"/><path d="M36 30 H64"/><path d="M50 56 V86 M36 88 H64"/>',
+ barrel:'<path d="M28 14 Q20 50 28 86 H72 Q80 50 72 14 Z"/><path d="M24 32 H76 M22 50 H78 M24 68 H76"/><circle cx="50" cy="50" r="4"/>',
+ tokkuri:'<path d="M42 12 H56 Q54 24 60 34 Q74 50 70 72 Q66 88 49 88 Q32 88 29 72 Q25 50 39 34 Q44 24 42 12 Z"/><path d="M70 80 H90 Q90 92 80 92 Q70 92 70 80 Z"/>',
+ pint:'<path d="M28 18 H72 L66 88 H34 Z"/><path d="M28 18 Q30 8 40 12 Q46 4 56 10 Q66 6 72 18"/><path d="M40 40 V76 M52 46 V70"/>',
+ laurel:'<path d="M50 88 Q24 70 22 30"/><path d="M50 88 Q76 70 78 30"/><path d="M26 44 q-10 -2 -12 -12 q10 0 12 12 M28 60 q-10 0 -14 -10 q10 -2 14 10 M36 74 q-10 2 -16 -6 q10 -4 16 6 M74 44 q10 -2 12 -12 q-10 0 -12 12 M72 60 q10 0 14 -10 q-10 -2 -14 10 M64 74 q10 2 16 -6 q-10 -4 -16 6"/>',
+ beaker:'<path d="M38 12 V40 L18 84 Q16 90 22 90 H78 Q84 90 82 84 L62 40 V12"/><path d="M34 12 H66"/><path d="M26 66 H74"/><circle cx="44" cy="76" r="3"/><circle cx="58" cy="72" r="2"/>',
+ fan:'<path d="M50 86 L14 40 Q50 6 86 40 Z"/><path d="M50 86 L30 24 M50 86 L50 18 M50 86 L70 24"/>',
+ lantern:'<path d="M50 6 V16"/><path d="M36 16 H64"/><path d="M30 24 Q22 50 30 76 H70 Q78 50 70 24 Z"/><path d="M30 24 H70 M30 76 H70"/><path d="M50 76 V92"/><path d="M40 24 Q36 50 40 76 M60 24 Q64 50 60 76"/>'};
+function trackArt(t,size){const k=(TRACK_LOOK[t]||[0,'coupe'])[1];return `<svg class="tart" width="${size||96}" height="${size||96}" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ART[k]}</svg>`}
+function cover(t,inner){return `<section class="cover" style="--tc:${tcol(t)}"><div class="cover-art">${trackArt(t,150)}</div><div class="cover-in">${inner}</div></section>`}
+
+// ===== Story mode: one key idea per screen =====
+function story(id,start){const l=L(id);if(!l)return;const ks=l.k;let i=start||0;
+ const el=document.createElement('div');el.className='story';el.style.setProperty('--tc',tcol(l.track));el.setAttribute('role','dialog');el.setAttribute('aria-label',l.title);document.body.appendChild(el);document.body.style.overflow='hidden';
+ const close=()=>{el.remove();document.body.style.overflow='';document.removeEventListener('keydown',key)};
+ const render=()=>{const done=i>=ks.length;let body;
+  if(done){body=`<div class="st-card st-end"><div class="st-art">${trackArt(l.track,120)}</div><h2>That's the lesson.</h2><p>Lock it in with flashcards and a quick check, then take the exam.</p><div class="row"><button class="btn st-btn" id="stp">Start practice</button><button class="btn alt st-alt" id="sta">Read it again</button></div></div>`}
+  else{const [t,b]=_split(ks[i]);const lead=SPECS.find(s=>(t||ks[i]).trim().startsWith(s[0]));
+   body=`<div class="st-card"><div class="st-n">${i+1} of ${ks.length}</div>${t?`<h2>${_hl(t,lead&&lead[0])}</h2>`:''}<p>${_hl(b,lead&&lead[0])}</p>${lead?specCard(lead[0]):''}</div>`}
+  el.innerHTML=`<div class="st-bars">${ks.map((_,j)=>`<i class="${j<i?'d':j==i?'c':''}"></i>`).join('')}</div>
+  <div class="st-top"><span>${esc(l.title)}</span><button class="st-x" aria-label="Close">✕</button></div>
+  <div class="st-stage">${body}</div>
+  ${done?'':`<button class="st-prev" aria-label="Previous"></button><button class="st-next" aria-label="Next"></button><div class="st-hint">Tap the right side to go on</div>`}`;
+  el.querySelector('.st-x').onclick=close;
+  if(done){el.querySelector('#stp').onclick=()=>{close();go('prac',id)};el.querySelector('#sta').onclick=()=>{i=0;render()};return}
+  el.querySelector('.st-next').onclick=()=>{i++;render()};el.querySelector('.st-prev').onclick=()=>{if(i>0){i--;render()}};
+  el.querySelectorAll('.dchip').forEach(b=>b.onclick=e=>{e.stopPropagation();const c=el.querySelector('.st-card');const x=c.querySelector('.spec');if(x)x.remove();c.insertAdjacentHTML('beforeend',specCard(b.dataset.spec))})};
+ let sx=null;el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+ el.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50){if(dx<0&&i<ks.length){i++;render()}else if(dx>0&&i>0){i--;render()}}sx=null});
+ const key=e=>{if(e.key==='Escape')close();if(e.key==='ArrowRight'&&i<ks.length){i++;render()}if(e.key==='ArrowLeft'&&i>0){i--;render()}};document.addEventListener('keydown',key);
+ render()}
 
 // ===== Web app adapter: Supabase login, synced progress, private content, AI coach =====
 const SB_URL='https://dxctmyonzgsqlkcoagga.supabase.co';
